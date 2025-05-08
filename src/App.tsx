@@ -11,7 +11,18 @@ import HomePage from "./pages/HomePage";
 import ChatPage from "./pages/ChatPage";
 import NotFound from "./pages/NotFound";
 
+// Import CSS for animations
+import "./App.css";
+
 const queryClient = new QueryClient();
+
+// Prevent default anchor behavior to avoid scrolling issues
+document.addEventListener('click', (e) => {
+  const target = e.target as HTMLElement;
+  if (target.tagName === 'A' && target.getAttribute('href') === '#') {
+    e.preventDefault();
+  }
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -19,15 +30,17 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/chat" element={<ChatPage />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="page-transition">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/chat" element={<ChatPage />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -40,7 +40,7 @@ const ReviewCard = ({
           size={16}
           className={`${
             i < rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'
-          }`}
+          } transition-all duration-200`}
         />
       ));
   };
@@ -52,11 +52,11 @@ const ReviewCard = ({
     .toUpperCase();
 
   return (
-    <Card className="card-hover h-full flex flex-col">
+    <Card className="card-hover h-full flex flex-col transform transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fadeIn">
       <CardHeader className="pb-2">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-4">
-            <Avatar>
+            <Avatar className="border-2 border-brand-100 transition-transform duration-300 hover:scale-105">
               {profileImage ? (
                 <AvatarImage src={profileImage} alt={name} />
               ) : (
@@ -75,16 +75,16 @@ const ReviewCard = ({
       </CardHeader>
       <CardContent className="py-4 flex-grow">
         <div className="mb-3 flex flex-wrap gap-2">
-          <Badge variant="secondary" className="bg-brand-100 text-brand-700 hover:bg-brand-200">
+          <Badge variant="secondary" className="bg-brand-100 text-brand-700 hover:bg-brand-200 transition-colors duration-200">
             {company}
           </Badge>
           {role && (
-            <Badge variant="outline" className="text-gray-700">
+            <Badge variant="outline" className="text-gray-700 transition-colors duration-200">
               {role}
             </Badge>
           )}
           {salaryPackage && (
-            <Badge variant="secondary" className="bg-teal-100 text-teal-700 hover:bg-teal-200">
+            <Badge variant="secondary" className="bg-teal-100 text-teal-700 hover:bg-teal-200 transition-colors duration-200">
               ₹{salaryPackage} LPA
             </Badge>
           )}
@@ -98,7 +98,7 @@ const ReviewCard = ({
         {tags && tags.length > 0 && (
           <div className="flex gap-2 flex-wrap justify-end">
             {tags.map(tag => (
-              <span key={tag} className="text-xs bg-gray-100 px-2 py-1 rounded-full">
+              <span key={tag} className="text-xs bg-gray-100 px-2 py-1 rounded-full transition-all hover:bg-gray-200 duration-200">
                 {tag}
               </span>
             ))}
