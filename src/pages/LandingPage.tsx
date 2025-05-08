@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -199,6 +198,15 @@ const LandingPage = () => {
               </CardContent>
             </Card>
           </div>
+          
+          {/* Added Browse Reviews button */}
+          <div className="mt-12 text-center animate-fadeIn">
+            <Link to="/reviews">
+              <Button size="lg" className="bg-brand-600 text-white hover:bg-brand-700 btn-hover-effect">
+                Browse All Reviews
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
       
@@ -209,11 +217,18 @@ const LandingPage = () => {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             Join thousands of students already leveraging peer experiences for better interview preparation.
           </p>
-          <Link to="/register">
-            <Button size="lg" className="bg-white text-brand-700 hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
-              Sign Up Now
-            </Button>
-          </Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link to="/register">
+              <Button size="lg" className="bg-white text-brand-700 hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                Sign Up Now
+              </Button>
+            </Link>
+            <Link to="/reviews">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 transition-all duration-300">
+                Explore Reviews
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
       

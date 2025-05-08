@@ -9,7 +9,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { MessageSquare, Bell, Search, User } from 'lucide-react';
 
-// Mock data for reviews with profile images
+// Enhanced reviews data with more entries
 const recentReviews: ReviewProps[] = [
   {
     id: '1',
@@ -50,6 +50,19 @@ const recentReviews: ReviewProps[] = [
     tags: ['Mass Hiring', 'HR Interview'],
     profileImage: 'https://images.unsplash.com/photo-1649972904349-6e44c42644a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80'
   },
+  {
+    id: '4',
+    name: 'Divya Sharma',
+    college: 'Chaitanya Bharathi Institute of Technology',
+    company: 'Accenture',
+    year: 2023,
+    rating: 4,
+    content: 'Accenture\'s process involved an online cognitive and technical assessment, followed by an HR interview. The focus was on communication skills and adaptability. They were very punctual with the results and joining dates.',
+    role: 'Associate Software Engineer',
+    package: '7.5',
+    tags: ['Communication', 'Technical Assessment'],
+    profileImage: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&h=200&q=80'
+  },
 ];
 
 const topColleges = [
@@ -57,6 +70,8 @@ const topColleges = [
   { name: 'JNTU Hyderabad', placements: '85%', companies: 95 },
   { name: 'CBIT Hyderabad', placements: '92%', companies: 80 },
   { name: 'Osmania University', placements: '82%', companies: 75 },
+  { name: 'Vasavi College of Engineering', placements: '90%', companies: 65 },
+  { name: 'CVR College of Engineering', placements: '88%', companies: 60 },
 ];
 
 const HomePage = () => {

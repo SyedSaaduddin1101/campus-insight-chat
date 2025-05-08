@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,8 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 
-// Sample review data
-const reviews = [
+// Extended review data with more colleges and companies
+const allReviews = [
   {
     id: 1,
     company: "Google",
@@ -57,14 +57,171 @@ const reviews = [
     userName: "Sneha Patel",
     position: "Systems Engineer",
     package: "8 LPA",
+  },
+  {
+    id: 5,
+    company: "TCS",
+    college: "MGIT Hyderabad",
+    year: 2022,
+    rating: 4,
+    review: "TCS campus recruitment had a three-stage process. The online test included aptitude, verbal and coding sections. Technical interview focused on CS fundamentals and problem-solving. HR interview was about adaptability and company knowledge.",
+    userImage: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Neha Singh",
+    position: "Assistant Systems Engineer",
+    package: "7 LPA",
+  },
+  {
+    id: 6,
+    company: "Capgemini",
+    college: "CVR College of Engineering",
+    year: 2023,
+    rating: 3,
+    review: "Capgemini had a standard recruitment process with aptitude, technical and HR rounds. The technical interview focused on basic programming concepts and project discussion. The HR round discussed salary expectations and joining dates.",
+    userImage: "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Arjun Reddy",
+    position: "Associate Consultant",
+    package: "6.5 LPA",
+  },
+  {
+    id: 7,
+    company: "Wipro",
+    college: "Gokaraju Rangaraju Institute of Engineering and Technology",
+    year: 2022,
+    rating: 4,
+    review: "Wipro's recruitment had an online assessment followed by technical and HR rounds. The technical round focused on programming fundamentals and logic building. Overall a smooth and well-organized recruitment process.",
+    userImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Vikram Kumar",
+    position: "Project Engineer",
+    package: "6 LPA",
+  },
+  {
+    id: 8,
+    company: "Accenture",
+    college: "Chaitanya Bharathi Institute of Technology",
+    year: 2023,
+    rating: 4,
+    review: "Accenture's process involved an online cognitive and technical assessment, followed by an HR interview. The focus was on communication skills and adaptability. They were very punctual with the results and joining dates.",
+    userImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Divya Sharma",
+    position: "Associate Software Engineer",
+    package: "7.5 LPA",
+  },
+  {
+    id: 9,
+    company: "IBM",
+    college: "Vasavi College of Engineering",
+    year: 2023,
+    rating: 4,
+    review: "IBM's process included a coding test, technical interview, and manager round. The technical interview was challenging with focus on cloud computing and microservices architecture. The manager round discussed career aspirations.",
+    userImage: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Anu Thomas",
+    position: "Associate Developer",
+    package: "9 LPA",
+  },
+  {
+    id: 10,
+    company: "Cognizant",
+    college: "VNR Vignana Jyothi Institute of Engineering & Technology",
+    year: 2022,
+    rating: 3,
+    review: "Cognizant had a GenC recruitment drive with an aptitude test followed by technical and HR interviews. Questions focused on basic programming concepts and attitude towards learning new technologies.",
+    userImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Sai Krishna",
+    position: "Programmer Analyst",
+    package: "6.8 LPA",
+  },
+  {
+    id: 11,
+    company: "Deloitte",
+    college: "IIIT Hyderabad",
+    year: 2023,
+    rating: 5,
+    review: "Deloitte's campus recruitment was very professional with four rounds - aptitude, group discussion, technical interview, and HR. The technical round was focused on problem-solving abilities and knowledge of latest technologies.",
+    userImage: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Aditya Verma",
+    position: "Technology Analyst",
+    package: "12 LPA",
+  },
+  {
+    id: 12,
+    company: "Mindtree",
+    college: "Muffakham Jah College of Engineering and Technology",
+    year: 2022,
+    rating: 4,
+    review: "Mindtree's process included a coding test and two rounds of interviews. The focus was on problem-solving skills and understanding of data structures. The interviews were conversational and stress-free.",
+    userImage: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&h=100&q=80",
+    userName: "Fatima Khan",
+    position: "Software Engineer",
+    package: "8.5 LPA",
   }
 ];
 
+// List of colleges in Telangana
+const telanganaColleges = [
+  "JNTU Hyderabad",
+  "IIIT Hyderabad",
+  "Osmania University",
+  "CBIT Hyderabad",
+  "VNR Vignana Jyothi Institute of Engineering & Technology",
+  "Vasavi College of Engineering",
+  "Chaitanya Bharathi Institute of Technology",
+  "CVR College of Engineering",
+  "MGIT Hyderabad",
+  "Gokaraju Rangaraju Institute of Engineering and Technology",
+  "Muffakham Jah College of Engineering and Technology",
+  "Sreenidhi Institute of Science and Technology",
+  "Mahatma Gandhi Institute of Technology",
+  "Vardhaman College of Engineering",
+  "KG Reddy College of Engineering and Technology",
+];
+
+// List of companies
+const companies = [
+  "Google",
+  "Microsoft",
+  "Amazon",
+  "TCS",
+  "Infosys",
+  "Wipro",
+  "Capgemini",
+  "Accenture",
+  "IBM",
+  "Cognizant",
+  "Deloitte",
+  "Tech Mahindra",
+  "Mindtree",
+  "HCL Technologies",
+  "Oracle",
+];
+
+const years = [2023, 2022, 2021, 2020, 2019];
+
 const ReviewsPage = () => {
+  // State for managing displayed reviews and filtering
+  const [displayedReviews, setDisplayedReviews] = useState(allReviews.slice(0, 6));
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState('');
+  const [selectedCollege, setSelectedCollege] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
+
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Handle loading more reviews
+  const handleLoadMore = () => {
+    const currentLength = displayedReviews.length;
+    const nextReviews = allReviews.slice(currentLength, currentLength + 6);
+    setDisplayedReviews([...displayedReviews, ...nextReviews]);
+  };
+
+  // Filter reviews based on search term and selected filters
+  const filterReviews = () => {
+    // Filter logic would go here in a real application
+    // For now, just reset to initial reviews
+    setDisplayedReviews(allReviews.slice(0, 6));
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -84,48 +241,55 @@ const ReviewsPage = () => {
                 <Input 
                   placeholder="Search by company, college..." 
                   className="pl-10"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
               </div>
-              <Select>
+              <Select value={selectedCompany} onValueChange={setSelectedCompany}>
                 <SelectTrigger>
                   <SelectValue placeholder="Company" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="google">Google</SelectItem>
-                  <SelectItem value="amazon">Amazon</SelectItem>
-                  <SelectItem value="microsoft">Microsoft</SelectItem>
-                  <SelectItem value="infosys">Infosys</SelectItem>
-                  <SelectItem value="tcs">TCS</SelectItem>
+                  {companies.map(company => (
+                    <SelectItem key={company} value={company}>{company}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <Select>
+              <Select value={selectedCollege} onValueChange={setSelectedCollege}>
                 <SelectTrigger>
                   <SelectValue placeholder="College" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="jntu">JNTU Hyderabad</SelectItem>
-                  <SelectItem value="cbit">CBIT Hyderabad</SelectItem>
-                  <SelectItem value="iiit">IIIT Hyderabad</SelectItem>
-                  <SelectItem value="ou">Osmania University</SelectItem>
+                  {telanganaColleges.map(college => (
+                    <SelectItem key={college} value={college}>{college}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
-              <Select>
+              <Select value={selectedYear.toString()} onValueChange={(value) => setSelectedYear(value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Year" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="2023">2023</SelectItem>
-                  <SelectItem value="2022">2022</SelectItem>
-                  <SelectItem value="2021">2021</SelectItem>
+                  {years.map(year => (
+                    <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
+            </div>
+            <div className="mt-4 text-right">
+              <Button 
+                onClick={filterReviews}
+                className="bg-brand-600 hover:bg-brand-700"
+              >
+                Apply Filters
+              </Button>
             </div>
           </div>
           
           {/* Reviews */}
           <div className="space-y-6">
-            {reviews.map((review) => (
+            {displayedReviews.map((review) => (
               <Card key={review.id} className="shadow-md transition-all duration-300 hover:shadow-lg animate-scaleIn" style={{ animationDelay: `${0.1 * review.id}s` }}>
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row justify-between mb-4">
@@ -177,8 +341,12 @@ const ReviewsPage = () => {
           
           {/* Load more button */}
           <div className="mt-8 text-center">
-            <Button className="bg-brand-600 hover:bg-brand-700 transition-transform duration-300 transform hover:scale-105">
-              Load More Reviews
+            <Button 
+              className="bg-brand-600 hover:bg-brand-700 transition-transform duration-300 transform hover:scale-105"
+              onClick={handleLoadMore}
+              disabled={displayedReviews.length >= allReviews.length}
+            >
+              {displayedReviews.length >= allReviews.length ? 'All Reviews Loaded' : 'Load More Reviews'}
             </Button>
           </div>
         </div>

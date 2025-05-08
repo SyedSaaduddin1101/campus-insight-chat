@@ -7,6 +7,19 @@
   text-align: left;
 }
 
+/* Prevent scroll jumping */
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100%;
+  position: relative;
+}
+
 /* Animation classes */
 .fade-in {
   animation: fadeIn 0.5s ease-in-out;
@@ -58,11 +71,6 @@
 /* Card hover effects */
 .card-hover {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Prevent scroll to bottom issue */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Global animation classes for Tailwind */

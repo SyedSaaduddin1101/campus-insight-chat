@@ -49,6 +49,8 @@ const App = () => (
             <Route path="/terms" element={<TermsPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/profile" element={<HomePage />} /> {/* Placeholder for profile page */}
+            <Route path="/notifications" element={<HomePage />} /> {/* Placeholder for notifications page */}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
